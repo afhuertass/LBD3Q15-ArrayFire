@@ -121,7 +121,7 @@ void LatticeBolztmannD3Q15::Adveccion(){
 }
 
 void LatticeBolztmannD3Q15::Run(int steps){
-  
+  float tau = 0.53; // relaxation parameter controlling the viscosity 
   for( int i = 0 ; i < steps; i++){
     
     std::cout << "Step:" << i << std::endl;
@@ -140,7 +140,7 @@ void LatticeBolztmannD3Q15::Run(int steps){
     array uz = vs(2,span,span); // z component of the velocity
     array feq =  feq2( rhos ,  ux , uy , uz ); // feq.
     // relaxation step.
-    fs = fs + beta*(feq - fs);
+    fs = fs + (1/tau)*(feq - fs);
     
     Adveccion(); 
     
